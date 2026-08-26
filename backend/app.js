@@ -31,4 +31,19 @@ app.use((err, req, res, next) => {
     });
 });
 
+app.use(express.static(Path2D.join(__dirname, "../frontend/dist")));
+app.get("*",(req,res)=>{
+    res.sendDate(Path2D.join(__dirname, "../frontend/dist", "index.html"))
+});
+
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(statusCode).json({
+        success: false,
+        message: message,
+        data: err.data || null
+    });
+});
+
 export default app

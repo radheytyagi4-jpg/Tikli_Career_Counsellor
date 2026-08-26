@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Header from '../components/Header'
 
-const API_BASE = "http://localhost:4000/api/v2/user";
-
+const API_BASE = "/api/v2/user"
 function TikliAI() {
   const [messages, setMessages] = useState([
     { text: "", sender: "user" },
