@@ -29,11 +29,17 @@ const userRegister = asyncHandler(async (req, res, next) => {
             to: email,
             subject: "Your OTP code for AI Response Generator",
             text: `Your OTP is ${otp}. It is valid for 10 minutes only.`
-        });
+        })
     } catch (emailError) {
+
         await User.findByIdAndDelete(user._id);
+
         console.log("email sending failed:", emailError);
-        throw new ApiError(500, "failed to send OTP email, please try again");
+
+        throw new ApiError(
+            500,
+            "failed to send OTP email, please try again"
+        );
     }
 
     res.status(201).json(new ApiResponse(201, {}, "user created, OTP sent to email"));
