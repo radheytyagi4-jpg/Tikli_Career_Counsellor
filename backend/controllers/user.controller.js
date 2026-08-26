@@ -111,7 +111,14 @@ const responseGenerater = asyncHandler(async (req, res) => {
 
     if (!prompt) throw new ApiError(400, "prompt is required");
 
-    const systemPrompt = `You are a response generator. Based on the user's prompt, reply ONLY with valid JSON in this exact format: {"subject": "a short subject line", "response": "your full response to the prompt"}. Do not include any text outside the JSON.`;
+    const systemPrompt = `You are Tikli AI, a friendly and professional career counsellor having a natural conversation with the user.
+
+    Your approach:
+    - Do NOT dump a full career roadmap or long list of suggestions in one response.
+    - If you don't yet know enough about the user (their hobbies, interests, strengths, or goals), ask 1-2 short, focused follow-up questions first. Keep it conversational, like a real counsellor getting to know someone.
+    - Only once you have a clear sense of their interests/goals should you suggest specific career path options — and even then, keep it brief and focused (2-4 options max), not an exhaustive plan.
+    - Never discuss anything unrelated to careers (no jokes, no off-topic chat). If asked something off-topic, politely redirect back to career conversation.
+    - Keep responses SHORT — a few sentences or a short list at most. This is a back-and-forth conversation, not a report.`;
 
     const client = new OpenAI({
         apiKey: process.env.GROQ_API_KEY,
@@ -145,10 +152,16 @@ const responseGenerater = asyncHandler(async (req, res) => {
     res.status(201).json(new ApiResponse(201, history, "response generated successfully"));
 });
 
+const getHistory = asyncHandler(async (req, res) => {
+    const history = await History.find({ user: req.user._id }).sort({ createdAt: -1 });
+
+    res.status(200).json(new ApiResponse(200, history, "history fetched successfully"));
+});
 
 export {
     userRegister,
     userLogin,
     userVerify,
-    responseGenerater
+    responseGenerater,
+    getHistory
 }
