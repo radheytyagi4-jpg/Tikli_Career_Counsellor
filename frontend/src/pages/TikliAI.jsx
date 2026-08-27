@@ -74,11 +74,11 @@ function TikliAI() {
       </div>
 
       {/* Input — fixed height, never scrolls */}
-      <div className='shrink-0 flex justify-center items-end gap-2 pb-6 px-4 pt-2'>
+      <div className='shrink-0 flex justify-center items-end gap-2 pb-5 px-4 pt-2 m-10'>
         <input
           type="text"
           placeholder="Type here..."
-          className='bg-white min-w-100 text-black font-bold h-10 p-4 rounded-3xl md:min-w-2xl md:p-6 md:text-2xl'
+          className='bg-white min-w-70 text-black font-bold h-10 p-5 rounded-3xl md:min-w-2xl md:p-6 md:text-2xl'
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -87,7 +87,7 @@ function TikliAI() {
         <button
           onClick={handleSend}
           disabled={loading}
-          className='bg-gray-500 w-10 h-10 rounded-sm font-bold text-3xl md:w-12 md:h-12 disabled:opacity-50'
+          className='bg-gray-500 px-3 py-0.5 mr-2 rounded-sm font-bold text-3xl md:w-12 md:h-12 disabled:opacity-50'
         >
           ↑
         </button>
